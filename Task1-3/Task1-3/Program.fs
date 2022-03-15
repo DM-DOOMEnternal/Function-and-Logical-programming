@@ -21,6 +21,8 @@ let rec outPutList list =
     |head::tail-> printf "%A," head; outPutList tail
     |[]-> printfn ""
 
+//-------------------------------------Конец Вывода/Ввода
+
 let minElm x y = 
     match x with
     |x when x > y -> y
@@ -34,23 +36,30 @@ let rec minList list fmin min =
         let a = fmin min head 
         minList tail fmin a
   
-let rec indexMinList list min indexMin  =
-    match list with
-    |[]-> indexMin
-    |head::tail when (head = min ) -> indexMin
-    |head :: tail -> indexMinList tail min (indexMin+1)
+let indexMinList list min   =
+    let rec index_min list min indexMin =
+        match list with
+        |[]-> indexMin
+        |head::tail when (head = min ) -> indexMin
+        |head :: tail -> index_min tail min (indexMin+1)
+    index_min list min 0
 
-let rec list_list2afterMinToBegin list list2 indexmin countInd1  =
-    match list with
-    |[]-> list2
-    |head::tail when countInd1 > indexmin -> list_list2afterMinToBegin tail (list2@[head]) indexmin (countInd1+1)
-    |head::tail -> list_list2afterMinToBegin tail list2 indexmin (countInd1+1)   
+let list_list2afterMinToBegin list list2 indexmin  =
+    let rec afterMinToBegin list list2 indexmin countInd1 =
+        match list with
+        |[]-> list2
+        |head::tail when countInd1 > indexmin -> afterMinToBegin tail (list2@[head]) indexmin (countInd1+1)
+        |head::tail -> afterMinToBegin tail list2 indexmin (countInd1+1)   
+    afterMinToBegin list list2 indexmin 0
 
-let rec list_list2BeforeMinToEnd list list2 indexmin countInd1  =
-    match list with
-    |[]-> list2
-    |head:: tail when countInd1<>indexmin-> list_list2BeforeMinToEnd tail (list2@[head]) indexmin (countInd1+1)   
-    |head::tail -> list2
+
+let list_list2BeforeMinToEnd list list2 indexmin  =
+    let rec beforeMinToEnd list list2 indexmin countInd1 = 
+        match list with
+        |[]-> list2
+        |head:: tail when countInd1<>indexmin-> beforeMinToEnd tail (list2@[head]) indexmin (countInd1+1)   
+        |head::tail -> list2
+    beforeMinToEnd list list2 indexmin 0
 
 
 [<EntryPoint>]
@@ -58,11 +67,11 @@ let main argv =
     let list = readSizeList
     outPutList list
     let min = minList list minElm (list.Head)
-    let index = indexMinList list min 0
+    let index = indexMinList list min 
     printfn "Min %d [%d]" min index
-    let list2=list_list2afterMinToBegin list [] index 0 
+    let list2=list_list2afterMinToBegin list [] index 
     outPutList list2
-    let list3 = list_list2BeforeMinToEnd list [] index 0
+    let list3 = list_list2BeforeMinToEnd list [] index 
     outPutList list3
     let list4 = list2 @ list3
     outPutList list4

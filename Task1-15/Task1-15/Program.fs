@@ -23,12 +23,16 @@ let rec outPutList list =
     |head::tail-> printf "%A," head; outPutList tail
     |[]-> printfn ""
 
+//--------------------------------------конец вывода/ввода
 
-let rec minList list index curIndex =
-    match list with
-    |[] -> 0
-    |head::tail  when (index = curIndex) -> head
-    |head::tail -> minList tail index (curIndex+1)
+
+let minList list index =
+    let rec min list index curIndex =
+        match list with
+        |[] -> 0
+        |head::tail  when (index = curIndex) -> head
+        |head::tail -> min tail index (curIndex+1)
+    min list index 0
 
 
 let rec locMinLessNextElm list locmin index curindex=
@@ -38,12 +42,14 @@ let rec locMinLessNextElm list locmin index curindex=
     |head::tail when (curindex = (index+1)) && (head < locmin) -> false
     |head::tail -> locMinLessNextElm tail locmin index (curindex+1)
 
-let rec searchLocMin list locmin curindex index flocmin =
-    match list with
-    |[]->false
-    |head::tail when (curindex = (index-1)) && (head < locmin) -> flocmin tail locmin index (curindex+1)
-    |head::tail when (curindex = (index-1)) && (head > locmin) -> false
-    |head::tail -> searchLocMin tail  locmin (curindex+1) index flocmin
+let searchLocMin list locmin index flocmin =
+    let rec search list locmin curindex index flocmin =
+        match list with
+        |[]->false
+        |head::tail when (curindex = (index-1)) && (head < locmin) -> flocmin tail locmin index (curindex+1)
+        |head::tail when (curindex = (index-1)) && (head > locmin) -> false
+        |head::tail -> search tail  locmin (curindex+1) index flocmin
+    search list locmin 0 index flocmin
 
 [<EntryPoint>]
 let main argv =
@@ -52,8 +58,8 @@ let main argv =
 
     printfn "Введите натуральный индекс меньше размера массива %d:"  list.Length   
     let indexLocMin = System.Convert.ToInt32(System.Console.ReadLine())
-    let minLocIndex = minList list indexLocMin 0
-    if((searchLocMin list minLocIndex 0 indexLocMin locMinLessNextElm)=true) then printfn "Да, элемент по указанному индексу [%d]  является локальным минимумом [%d] " indexLocMin minLocIndex 
+    let minLocIndex = minList list indexLocMin
+    if((searchLocMin list minLocIndex indexLocMin locMinLessNextElm)=true) then printfn "Да, элемент по указанному индексу [%d] является локальным минимумом [%d] " indexLocMin minLocIndex 
     else
         printfn "Нет, элемент по указанному индексу [%d] не является локальным минимумом [%d] " indexLocMin minLocIndex 
     0 // return an integer exit code

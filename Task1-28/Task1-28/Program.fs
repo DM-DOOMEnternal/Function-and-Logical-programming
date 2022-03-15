@@ -21,39 +21,50 @@ let rec outPutList list =
     |head::tail-> printf "%A," head; outPutList tail
     |[]-> printfn ""
 
+
+//--------------------------------------конец вывода/ввода
+
+
 let maxElm x y =
     match x with
     |x when x >= y -> true
     |x->false
 
-let rec lastMaxList list list2 max index indexMax fMax =
-    match list with
-    |[]-> (list2@[max]@[indexMax])
-    |head::tail when (fMax head max ) -> lastMaxList tail list2 head (index+1) index fMax
-    |head::tail -> lastMaxList tail list2 max (index+1) indexMax fMax
+let lastMaxList list list2 max fMax =
+    let rec maxList list list2 max index indexMax fMax =
+        match list with
+        |[]-> (list2@[max]@[indexMax])
+        |head::tail when (fMax head max ) -> maxList tail list2 head (index+1) index fMax
+        |head::tail -> maxList tail list2 max (index+1) indexMax fMax
+    maxList list list2 max 0 0 fMax
 
-let rec firstMaxList list list2 index lastMax indexLastMax =
-    match list with
-    |[]-> list2
-    |head::tail when (head=lastMax) && (index<>indexLastMax)  -> (list2@[head]@[index])
-    |head::tail -> firstMaxList tail list2 (index+1) lastMax indexLastMax
+let firstMaxList list list2 lastMax indexLastMax =
+    let rec firstMax list list2 index lastMax indexLastMax =
+        match list with
+        |[]-> list2
+        |head::tail when (head=lastMax) && (index<>indexLastMax)  -> (list2@[head]@[index])
+        |head::tail -> firstMax tail list2 (index+1) lastMax indexLastMax
+    firstMax list list2 0 lastMax indexLastMax
 
-let rec elmFirst_LastMax list list2 indexFirst indexLast index =
-    match list with
-    |[]->list2
-    |head::tail when (index > indexFirst) && (index <indexLast) -> elmFirst_LastMax tail (list2@[head]) indexFirst indexLast (index+1)
-    |head::tail -> elmFirst_LastMax tail list2 indexFirst indexLast (index+1)
+let elmFirst_LastMax list list2 indexFirst indexLast =
+    let rec elmFirs_Last list list2 indexFirst indexLast index =
+        match list with
+        |[]->list2
+        |head::tail when (index > indexFirst) && (index <indexLast) -> elmFirs_Last tail (list2@[head]) indexFirst indexLast (index+1)
+        |head::tail -> elmFirs_Last tail list2 indexFirst indexLast (index+1)
+    elmFirs_Last list list2 indexFirst indexLast 0
+
 
 [<EntryPoint>]
 let main argv =
     let list = readSizeList
     outPutList list
-    let list2 = lastMaxList list [] (list.Head) 0 0 maxElm
+    let list2 = lastMaxList list [] (list.Head) maxElm
     printf " Последний максимальный элемен, индекс макс элемента  "
     outPutList list2
 
     let listindexLast = list2.Tail
-    let list3 = firstMaxList list [] 0 (list2.Head) (listindexLast.Head)
+    let list3 = firstMaxList list [] (list2.Head) (listindexLast.Head)
     if(list3=[]) then 
         printfn " Максимальный элемент один , невозможно найти элементы между 1 и последним " 
         0
@@ -63,7 +74,7 @@ let main argv =
         outPutList list3
         
         let listindexFirst = list3.Tail
-        let listElm_First_LastMax = elmFirst_LastMax list [] (listindexFirst.Head) (listindexLast.Head) 0
+        let listElm_First_LastMax = elmFirst_LastMax list [] (listindexFirst.Head) (listindexLast.Head)
 
         printf " Элементы между первым и последним макс [%d,%d]" (listindexFirst.Head) (listindexLast.Head)
         outPutList listElm_First_LastMax

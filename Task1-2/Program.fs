@@ -23,6 +23,8 @@ let rec outPutList list =
     |head::tail-> printf "%A," head; outPutList tail
     |[]-> printfn ""
 
+//--------------------------------------Конец ВВод/вывод
+
 let minElm x y = 
     match x with
     |x when x > y -> y
@@ -36,17 +38,19 @@ let rec minList list fmin min =
         let a = fmin min head 
         minList tail fmin a
   
-let rec indexMinList list min indexMin  =
-    match list with
-    |[]-> indexMin
-    |head::tail when (head = min ) -> indexMin
-    |head :: tail -> indexMinList tail min (indexMin+1)
+let indexMinList list min  =
+    let rec index_min list min indexMin =
+        match list with
+        |[]-> indexMin
+        |head::tail when (head = min ) -> indexMin
+        |head :: tail -> index_min tail min (indexMin+1)
+    index_min list min 0
 
 [<EntryPoint>]
 let main argv =
     let list = readSizeList
     outPutList list
     let min = minList list minElm (list.Head)
-    let index = indexMinList list min 0
+    let index = indexMinList list min
     printfn "Min %d [%d]" min index
     0 // return an integer exit code

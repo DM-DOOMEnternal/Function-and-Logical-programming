@@ -23,6 +23,7 @@ let rec outPutList list =
     |head::tail-> printf "%A," head; outPutList tail
     |[]-> printfn ""
 
+
 let maxElm x y = 
     match x with
     |x when x > y -> x
@@ -36,17 +37,21 @@ let rec maxList list fmax max =
         let a = fmax max head 
         maxList tail fmax a
   
-let rec indexMaxList list max countInd1 countInd2 =
-    match list with
-    |[]->countInd1
-    |head::tail when (head = max ) -> indexMaxList tail max (countInd1+countInd2+1) 0
-    |head :: tail -> indexMaxList tail max countInd1 (countInd2+1)
+let indexMaxList list max = //countInd1 countInd2 =
+    let rec indexMax list max countInd1 countInd2 =
+        match list with
+        |[]->countInd1
+        |head::tail when (head = max ) -> indexMax tail max (countInd1+countInd2+1) 0
+        |head :: tail -> indexMax tail max countInd1 (countInd2+1)
+    indexMax list max 0 0
 
-let rec countAfterMax_list list max count fcount indexMax  countInd1 =
-    match list with
-    |[]->count
-    |head:: tail when countInd1=indexMax-> fcount tail count 
-    |head::tail -> countAfterMax_list tail max count fcount indexMax (countInd1+1)
+let  countAfterMax_list list max fcount indexMax   =
+    let rec countAfterMax list max fcount indexMax count countInd1 = // count countInd1
+        match list with
+        |[]->count
+        |head:: tail when countInd1=indexMax-> fcount tail count 
+        |head::tail -> countAfterMax tail max  fcount indexMax count (countInd1+1)
+    countAfterMax list max fcount indexMax 0 0
 
 let rec countElmList list count =
     match list with
@@ -58,9 +63,9 @@ let main argv =
     let list = readSizeList
     outPutList list
     let max = maxList list maxElm Int32.MinValue
-    let indexmax = (indexMaxList list max 0 0)-1
+    let indexmax = (indexMaxList list max)-1
     printfn "max element: %d [%d]" max indexmax
-    let count = countAfterMax_list list max 0 countElmList indexmax 0
+    let count = countAfterMax_list list max countElmList indexmax
     printfn "count elements after max %d: %d"  max count
     
     0 // return an integer exit code

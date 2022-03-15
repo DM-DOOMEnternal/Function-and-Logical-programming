@@ -23,6 +23,8 @@ let rec outPutList list =
     |head::tail-> printf "%A," head; outPutList tail
     |[]-> printfn ""
 
+//--------------------------------------конец вывода/ввода
+
 let maxElm x y =
     match x with
     |x when x > y -> true
