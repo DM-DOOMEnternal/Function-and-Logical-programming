@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1_1\\Task1_1\\Task1_1.fsproj": {}
+    "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1-21\\Task1-21\\Task1-21.fsproj": {}
   },
   "projects": {
-    "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1_1\\Task1_1\\Task1_1.fsproj": {
+    "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1-21\\Task1-21\\Task1-21.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1_1\\Task1_1\\Task1_1.fsproj",
-        "projectName": "Task1_1",
-        "projectPath": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1_1\\Task1_1\\Task1_1.fsproj",
+        "projectUniqueName": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1-21\\Task1-21\\Task1-21.fsproj",
+        "projectName": "Task1-21",
+        "projectPath": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1-21\\Task1-21\\Task1-21.fsproj",
         "packagesPath": "C:\\Users\\Knight\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1_1\\Task1_1\\obj\\",
+        "outputPath": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\LB7\\Task1-21\\Task1-21\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"

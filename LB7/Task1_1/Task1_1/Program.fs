@@ -27,13 +27,14 @@ let maxElm list =
   
 let indexMaxElm elm max = (max=elm)    
  
-let afterMax list list2 index = 
-    let rec elms list list2 index count =
+let afterMax elm list index  = 
+    let rec elms elm list index count =
         match list with
-        |[]->list2
-        |head::tail when(count > index) -> elms tail (list2@[head]) index (count+1)
-        |head::tail -> elms tail list2 index (count+1)
-    elms list list2 index 0
+        |[] -> false
+        |head::tail when(count < index) && (head=elm) -> true
+        |head::tail -> elms elm tail index (count+1)
+        |head::tail when (index=count) -> false
+    elms elm list index 0
     
 
 
@@ -44,8 +45,10 @@ let main argv =
     let maxElmList = maxElm list
     let index = (List.length(list)-1)-(List.findIndex(fun elm -> indexMaxElm elm maxElmList) (List.rev(list)))
     printfn " Max Elem : %d  [%d]" maxElmList index 
-    let list2 = afterMax list [] index
-    outPutList list2
+    let index2 = (List.length(list)-1)-index
+    let list2 = List.filter(fun elm -> afterMax elm (List.rev(list)) index2) (List.rev(list))//let list2 = afterMax list [] index
+    outPutList (List.rev(list2))
+    printfn " Количество элементов %d " (List.length(list2)) 
     0 // return an integer exit code
 
     (*Дан целочисленный массив. Необходимо найти количество
