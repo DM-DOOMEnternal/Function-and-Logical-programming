@@ -4,18 +4,6 @@ open System
 (*Дан целочисленный массив. Необходимо найти элементы,
 расположенные после первого максимального.*)
 
-let rec readList n =
-    if n=0 then []
-    else
-    let Head = System.Convert.ToInt32(System.Console.ReadLine())
-    let Tail = readList (n-1)
-    Head::Tail
-
-let readSizeList =
-    printfn "Задайте размер листа, затем вводите последовательно числа"
-    let n = System.Convert.ToInt32(System.Console.ReadLine())
-    readList n
-
 let rec outPutList list =
     match list with
     |head::[] -> printfn "%A" head
@@ -23,25 +11,18 @@ let rec outPutList list =
     |[]-> printfn ""
 
 let indexMaxElm elm max = (max=elm)    
- 
-let afterMax elm list index  = 
-    let rec elms elm list index  =
-        match list with
-        |[] -> false
-        |head::tail when (index < fst(elm)) -> true
-        |head::tail -> elms elm tail index 
-    elms elm list index
+
+let ind indMax curind = curind > indMax 
 
 [<EntryPoint>]
 let main argv =
-    let list = readSizeList
+    let list = [4;5;7;3;2;3;7;1;2]
     outPutList list
     let maxElmList =  List.max(list)
-    let index = List.findIndex(fun elm -> indexMaxElm elm maxElmList) list
+    let index = List.findIndex(fun elm -> indexMaxElm elm maxElmList) (List.rev(list))
     printfn " Max Elem : %d [%d]" maxElmList index
-    let list2 = List.indexed(list)
-    outPutList list2
-    let list3 = List.filter(fun elm -> afterMax elm list2 index) list2 //let list2 = afterMax list [] index
+    let list2 = List.filter(fun elm -> ind index (fst(elm)) ) (List.indexed(list))
+    let list3 = List.map(fun x -> snd x) list2
     outPutList list3
     printfn " Количество элементов %d " (List.length(list3)) 
     0 // return an integer exit code
