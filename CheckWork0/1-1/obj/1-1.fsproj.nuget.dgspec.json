@@ -1,0 +1,58 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\CheckWork0\\1-1\\1-1.fsproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\CheckWork0\\1-1\\1-1.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\CheckWork0\\1-1\\1-1.fsproj",
+        "projectName": "1-1",
+        "projectPath": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\CheckWork0\\1-1\\1-1.fsproj",
+        "packagesPath": "C:\\Users\\Knight\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Knight\\Documents\\F#\\GitHub\\LB6\\LB6\\CheckWork0\\1-1\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Knight\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "FSharp.Core": {
+              "target": "Package",
+              "version": "[4.6.2, )"
+            },
+            "Microsoft.NETCore.App": {
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
