@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "Task1/1.0.0": {
+      "Task1-4LB5/1.0.0": {
         "dependencies": {
           "FSharp.Core": "4.6.2"
         },
         "runtime": {
-          "Task1.dll": {}
+          "Task1-4LB5.dll": {}
         }
       },
       "FSharp.Core/4.6.2": {
@@ -69,7 +69,7 @@
     }
   },
   "libraries": {
-    "Task1/1.0.0": {
+    "Task1-4LB5/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
