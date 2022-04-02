@@ -34,7 +34,6 @@ type Document_PassportRF() =
                 let Tail = serial_numberList (n-1)
                 Head::Tail
     
-
     (*let rec writeBirthday data : string =
         let dataformat = "dd-MM-yyyy"
         let dat = data// DateTime.Parse(data)  
@@ -60,12 +59,18 @@ type Document_PassportRF() =
         printf " Input Birth Place (dd.mm.yyyy): "
         _birthday <- System.Console.ReadLine()
 
+    member print.printDocument =
+        printfn " Serial   Number   Surname    Name    Patronymic    birthPlace    birthday\n"
+        let serial = System.String.Concat(_serial_Passport)
+        let number = System.String.Concat(_number_Passport)
+        printfn " %A  %A   %s  %s  %s  %s  %A " serial number _surnmae_Passport _name_Passport _patronymic_Passport _birthPlace _birthday
 
     member serial.getSerial
         with get() = _serial_Passport
         and private set(value:int list) = _serial_Passport <-value 
     member number.getNumber
         with get() = _number_Passport
+        and private set(value:int list) = _number_Passport <-value
     member surname.getSurname
         with get() = _surnmae_Passport
     member name.getName
@@ -84,11 +89,14 @@ type Document_PassportRF() =
 let main argv =
     let passport = Document_PassportRF()
     passport.inputData
-    printfn " %A " passport.getSerial
+    passport.printDocument
+    (*printfn " %A " passport.getSerial
     printfn " %A " passport.getNumber
     printfn " %A " passport.getSurname
     printfn " %A " passport.getName
     printfn " %A " passport.getPatronymic
     printfn " %A " passport.getBirthPlace
-    printfn " %A " passport.getBirthday
+    printfn " %A " passport.getBirthday*)
     0 // return an integer exit code
+(*Task 5 1 April 17 00
+  Task 6 2 April 9 43*)
