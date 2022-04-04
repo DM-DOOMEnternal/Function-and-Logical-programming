@@ -1,6 +1,7 @@
 ﻿// Learn more about F# at http://fsharp.org
 
 open System
+open System.Text.RegularExpressions
 
 (*5 Создать класс, содержащий информацию о документе.*)
 
@@ -22,7 +23,7 @@ type Document_PassportRF() =
     
     let rec inputDigit a checkDig=
          match a with
-         |a when checkDig a = true ->a
+         |a when checkDig a = true -> a
          |a when checkDig a = false -> printf " Неверный ввод, введите заново(одна цифра)!"
                                        inputDigit (System.Convert.ToInt32(System.Console.ReadLine())) checkDig
          |a -> a
@@ -34,6 +35,18 @@ type Document_PassportRF() =
                 let Tail = serial_numberList (n-1)
                 Head::Tail
     
+    (*let rec check (x : string) =
+        match x with
+        |x when x.Length<6 || x.Length >6 -> printfn " Слишком коротко или длинно!(Длина = 6!)"; check (System.Console.ReadLine())
+        |x when x.Length = 6 && *)
+
+
+    (*let rec serialString n =
+        if(n=0) then ""
+        else
+            let mutable a = System.Console.ReadLine()*)
+
+
     (*let rec writeBirthday data : string =
         let dataformat = "dd-MM-yyyy"
         let dat = data// DateTime.Parse(data)  
@@ -65,6 +78,13 @@ type Document_PassportRF() =
         let number = System.String.Concat(_number_Passport)
         printfn " %A  %A   %s  %s  %s  %s  %A " serial number _surnmae_Passport _name_Passport _patronymic_Passport _birthPlace _birthday
 
+    override this.Equals (x : obj) =
+        match x with
+        | :? Document_PassportRF as other -> (other.getSerial = this.getSerial) && (other.getNumber = this.getNumber)
+        |_->false
+
+    //TODO: override this.GetHashCode()
+
     member serial.getSerial
         with get() = _serial_Passport
         and private set(value:int list) = _serial_Passport <-value 
@@ -90,6 +110,10 @@ let main argv =
     let passport = Document_PassportRF()
     passport.inputData
     passport.printDocument
+    let passport2 = Document_PassportRF()
+    passport2.inputData
+    passport2.printDocument
+    printfn "%b" (passport = passport2)
     (*printfn " %A " passport.getSerial
     printfn " %A " passport.getNumber
     printfn " %A " passport.getSurname
@@ -99,4 +123,5 @@ let main argv =
     printfn " %A " passport.getBirthday*)
     0 // return an integer exit code
 (*Task 5 1 April 17 00
-  Task 6 2 April 9 43*)
+  Task 6 2 April 9 43
+  Task 7 4 April 17 00*)
