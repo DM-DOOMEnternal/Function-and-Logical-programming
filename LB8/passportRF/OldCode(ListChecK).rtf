@@ -1,0 +1,133 @@
+{\rtf1\ansi\ansicpg1251\deff0\deflang1049{\fonttbl{\f0\fnil Consolas;}{\f1\fnil\fcharset204 Consolas;}{\f2\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green128\blue0;\red0\green0\blue255;\red0\green0\blue0;\red163\green21\blue21;}
+{\*\generator Msftedit 5.41.21.2512;}\viewkind4\uc1\pard\sa200\sl276\slmult1\cf1\lang9\f0\fs19 // Learn more about F# at {\field{\*\fldinst{HYPERLINK "http://fsharp.org"}}{\fldrslt{\ul\cf2 http://fsharp.org}}}\cf3\f0\fs19\par
+\par
+\cf2 open\cf3  System\par
+\cf2 open\cf3  System.Text.RegularExpressions\par
+\cf2 open\cf3  System.Text\par
+\cf2 open\cf3  System.Collections.Generic\par
+\par
+\cf1 (*5 \lang1049\f1\'d1\'ee\'e7\'e4\'e0\'f2\'fc\lang9\f0  \lang1049\f1\'ea\'eb\'e0\'f1\'f1\lang9\f0 , \lang1049\f1\'f1\'ee\'e4\'e5\'f0\'e6\'e0\'f9\'e8\'e9\lang9\f0  \lang1049\f1\'e8\'ed\'f4\'ee\'f0\'ec\'e0\'f6\'e8\'fe\lang9\f0  \lang1049\f1\'ee\lang9\f0  \lang1049\f1\'e4\'ee\'ea\'f3\'ec\'e5\'ed\'f2\'e5\lang9\f0 .*)\cf3\par
+\par
+\cf2 type\cf3  Document_PassportRF() =\par
+\par
+    \cf2 let\cf3  \cf2 mutable\cf3  _serial_Passport : string = \cf4 ""\cf3  \cf1 //int list =[]\cf3\par
+    \cf2 let\cf3  \cf2 mutable\cf3  _number_Passport : int list= []\par
+    \cf2 let\cf3  \cf2 mutable\cf3  _surnmae_Passport : string = \cf4 ""\cf3\par
+    \cf2 let\cf3  \cf2 mutable\cf3  _name_Passport : string = \cf4 ""\cf3\par
+    \cf2 let\cf3  \cf2 mutable\cf3  _patronymic_Passport : string = \cf4 ""\cf3\par
+    \cf2 let\cf3  \cf2 mutable\cf3  _birthPlace : string =\cf4 ""\cf3\par
+    \cf2 let\cf3  \cf2 mutable\cf3  _birthday : string =\cf4 "01.01.1900"\cf3\par
+\par
+    \cf1 (*let checkDigit x = \cf3\par
+\cf1         match x with\cf3\par
+\cf1         |x when x%10=x -> true\cf3\par
+\cf1         |x when x%10<>x -> false\cf3\par
+\cf1         |x -> false\cf3\par
+\cf1     \cf3\par
+\cf1     let rec inputDigit a checkDig=\cf3\par
+\cf1          match a with\cf3\par
+\cf1          |a when checkDig a = true -> a\cf3\par
+\cf1          |a when checkDig a = false -> printf " \lang1049\f1\'cd\'e5\'e2\'e5\'f0\'ed\'fb\'e9\lang9\f0  \lang1049\f1\'e2\'e2\'ee\'e4\lang9\f0 , \lang1049\f1\'e2\'e2\'e5\'e4\'e8\'f2\'e5\lang9\f0  \lang1049\f1\'e7\'e0\'ed\'ee\'e2\'ee\lang9\f0 (\lang1049\f1\'ee\'e4\'ed\'e0\lang9\f0  \lang1049\f1\'f6\'e8\'f4\'f0\'e0\lang9\f0 )!"\cf3\par
+\cf1                                        inputDigit (System.Convert.ToInt32(System.Console.ReadLine())) checkDig\cf3\par
+\cf1          |a -> a\cf3\par
+\cf1     let rec serial_numberList n =\cf3\par
+\cf1            if n=0 then []\cf3\par
+\cf1            else\cf3\par
+\cf1                 let mutable a = System.Convert.ToInt32(System.Console.ReadLine())       \cf3\par
+\cf1                 let Head = inputDigit a checkDigit\cf3\par
+\cf1                 let Tail = serial_numberList (n-1)\cf3\par
+\cf1                 Head::Tail*)\cf3\par
+    \par
+    \cf2 let\cf3  \cf2 rec\cf3  check (x : string) =\par
+        \cf2 let\cf3  reg = \cf2 new\cf3  Regex(\cf4 @"^([\\d.,-]+)$"\cf3 )\par
+        \cf2 match\cf3  x \cf2 with\cf3\par
+        |x \cf2 when\cf3  x.Length<6 || x.Length >6 \cf2 ->\cf3  printfn \cf4 " \lang1049\f1\'d1\'eb\'e8\'f8\'ea\'ee\'ec\lang9\f0  \lang1049\f1\'ea\'ee\'f0\'ee\'f2\'ea\'ee\lang9\f0  \lang1049\f1\'e8\'eb\'e8\lang9\f0  \lang1049\f1\'e4\'eb\'e8\'ed\'ed\'ee\lang9\f0 !(\lang1049\f1\'c4\'eb\'e8\'ed\'e0\lang9\f0  = 6!) \lang1049\f1\'c2\'e2\'e5\'e4\'e8\'f2\'e5\lang9\f0  \lang1049\f1\'e7\'e0\'ed\'ee\'e2\'ee\lang9\f0 ! "\cf3 ; check (System.Console.ReadLine())\par
+        |x \cf2 when\cf3  x.Length = 6 &&  reg.IsMatch(x) \cf2 ->\cf3  x\par
+        |x \cf2 ->\cf3  printfn \cf4 " \lang1049\f1\'cd\'e5\'e2\'e5\'f0\'ed\'ee\lang9\f0 , 6 \lang1049\f1\'f6\'e8\'f4\'f0\lang9\f0 ! \lang1049\f1\'c2\'e2\'e5\'e4\'e8\'f2\'e5\lang9\f0  \lang1049\f1\'e7\'e0\'ed\'ee\'e2\'ee\lang9\f0 !"\cf3 ; check (System.Console.ReadLine())\par
+\par
+\par
+    \cf2 member\cf3  \cf2 private\cf3  this.serialString  = \par
+            check (System.Console.ReadLine())\par
+\par
+\par
+    \cf1 (*let rec writeBirthday data : string =\cf3\par
+\cf1         let dataformat = "dd-MM-yyyy"\cf3\par
+\cf1         let dat = data// DateTime.Parse(data)  \cf3\par
+\cf1         match dat with\cf3\par
+\cf1         |data when Int32.Parse(dat.Split(' ')[1])=2 -> \cf3\par
+\cf1             printf " \lang1049\f1\'cd\'e5\lang9\f0  \lang1049\f1\'e2\'e5\'f0\'ed\'ee\lang9\f0  \lang1049\f1\'e2\'e2\'e5\'e4\'e5\'ed\'e0\lang9\f0  \lang1049\f1\'e4\'e0\'f2\'e0\lang9\f0  (\lang1049\f1\'e4\'e4\lang9\f0 ,\lang1049\f1\'ec\'ec\lang9\f0 ,\lang1049\f1\'e3\'e3\'e3\'e3\lang9\f0 )"\cf3\par
+\cf1             writeBirthday (System.Console.ReadLine())\cf3\par
+\cf1         |data -> (string (data)) *)\cf3\par
+\par
+    \cf2 member\cf3  write.inputData =\par
+        printfn \cf4 " Input serial (6) : "\cf3\par
+        _serial_Passport \cf2 <-\cf3  write.serialString \cf1 //serial_numberList 6\cf3\par
+        printfn \cf4 " Input number (4) : "\cf3\par
+       \cf1 // _number_Passport <- serial_numberList 4\cf3\par
+        printf \cf4 " Input Surname : "\cf3\par
+        _surnmae_Passport \cf2 <-\cf3  System.Console.ReadLine()\par
+        printf \cf4 " Input Name : "\cf3\par
+        _name_Passport \cf2 <-\cf3  System.Console.ReadLine()\par
+        printf \cf4 " Input Patronymic : "\cf3\par
+        _patronymic_Passport \cf2 <-\cf3  System.Console.ReadLine()\par
+        printf \cf4 " Input Birth Place : "\cf3\par
+        _birthPlace \cf2 <-\cf3  System.Console.ReadLine()\par
+        printf \cf4 " Input Birth Place (dd.mm.yyyy): "\cf3\par
+        _birthday \cf2 <-\cf3  System.Console.ReadLine()\par
+\par
+    \cf2 member\cf3  print.printDocument =\par
+        printfn \cf4 " Serial   Number   Surname    Name    Patronymic    birthPlace    birthday\\n"\cf3\par
+        \cf2 let\cf3  serial = System.String.Concat(_serial_Passport)\par
+        \cf2 let\cf3  number = System.String.Concat(_number_Passport)\par
+        printfn \cf4 " %A  %A   %s  %s  %s  %s  %A "\cf3  serial number _surnmae_Passport _name_Passport _patronymic_Passport _birthPlace _birthday\par
+\par
+    \cf2 override\cf3  this.Equals (x : obj) =\par
+        \cf2 match\cf3  x \cf2 with\cf3\par
+        | :? Document_PassportRF \cf2 as\cf3  other \cf2 ->\cf3  (other.getSerial = this.getSerial) && (other.getNumber = this.getNumber)\par
+        |_\cf2 ->false\cf3\par
+\par
+    \cf1 //TODO: override this.GetHashCode()\cf3\par
+\par
+    \cf2 member\cf3  serial.getSerial\par
+        \cf2 with\cf3  get() = _serial_Passport\par
+        \cf2 and\cf3  \cf2 private\cf3  set(value : string) = _serial_Passport \cf2 <-\cf3  value\cf1 //(value:int list) = _serial_Passport <-value \cf3\par
+    \cf2 member\cf3  number.getNumber\par
+        \cf2 with\cf3  get() = _number_Passport\par
+        \cf2 and\cf3  \cf2 private\cf3  set(value:int list) = _number_Passport \cf2 <-\cf3 value\par
+    \cf2 member\cf3  surname.getSurname\par
+        \cf2 with\cf3  get() = _surnmae_Passport\par
+    \cf2 member\cf3  name.getName\par
+        \cf2 with\cf3  get() = _name_Passport\par
+    \cf2 member\cf3  patronymic.getPatronymic\par
+        \cf2 with\cf3  get() = _patronymic_Passport\par
+    \cf2 member\cf3  birthdayPlace.getBirthPlace\par
+        \cf2 with\cf3  get() = _birthPlace\par
+    \cf2 member\cf3  birthday.getBirthday\par
+        \cf2 with\cf3  get() = _birthday\par
+\par
+\par
+  \par
+\par
+[<EntryPoint>]\par
+\cf2 let\cf3  main argv =\par
+    \cf2 let\cf3  passport = Document_PassportRF()\par
+    passport.inputData\par
+    passport.printDocument\par
+    \cf1 (*let passport2 = Document_PassportRF()\cf3\par
+\cf1     passport2.inputData\cf3\par
+\cf1     passport2.printDocument\cf3\par
+\cf1     printfn "%b" (passport = passport2)*)\cf3\par
+    \cf1 (*printfn " %A " passport.getSerial\cf3\par
+\cf1     printfn " %A " passport.getNumber\cf3\par
+\cf1     printfn " %A " passport.getSurname\cf3\par
+\cf1     printfn " %A " passport.getName\cf3\par
+\cf1     printfn " %A " passport.getPatronymic\cf3\par
+\cf1     printfn " %A " passport.getBirthPlace\cf3\par
+\cf1     printfn " %A " passport.getBirthday*)\cf3\par
+    0 \cf1 // return an integer exit code\cf3\par
+\cf1 (*Task 5 1 April 17 00\cf3\par
+\cf1   Task 6 2 April 9 43\cf3\par
+\cf1   Task 7 4 April 17 00*)\cf0\f2\fs22\par
+}
+ 
