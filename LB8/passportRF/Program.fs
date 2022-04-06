@@ -8,7 +8,7 @@ open System.Collections.Generic
 (*5 Создать класс, содержащий информацию о документе.*)
 
 type Document_PassportRF() =
-
+    
     let mutable _serial_Passport : string = "" 
     let mutable _number_Passport : string = ""
     let mutable _surnmae_Passport : string = ""
@@ -50,6 +50,12 @@ type Document_PassportRF() =
         |x when reg.IsMatch(x) -> x
         |x -> printfn " Неверный ввод(буквы и цифры допустимы)! "; check_BirthPlace (System.Console.ReadLine())
 
+    interface IComparable with
+        member this.CompareTo(o : obj) : int =
+            match o with
+            | :? Document_PassportRF as other -> if this.getSerial = other.getSerial then this.getNumber.CompareTo other.getNumber else this.getSerial.CompareTo other.getSerial
+            |_ -> 0
+
 
     member write.inputData =
         printfn " Input serial (6) : "
@@ -76,7 +82,8 @@ type Document_PassportRF() =
         | :? Document_PassportRF as other -> (other.getSerial = this.getSerial) && (other.getNumber = this.getNumber)
         |_->false
 
-    //TODO: override this.GetHashCode()
+    override this.GetHashCode() =
+        HashCode.Combine(_serial_Passport,_number_Passport)
 
     member serial.getSerial
         with get() = _serial_Passport
@@ -95,17 +102,76 @@ type Document_PassportRF() =
     member birthday.getBirthday
         with get() = _birthday
 
+[<AbstractClass>]
+type CollectionDocument() =
+    abstract member searchDoc : Document_PassportRF -> bool
+
+type ArrayPassports( listPass : Document_PassportRF list) =
+    inherit CollectionDocument()
+
+    member this.ArrayPass = Array.ofList listPass
+
+    override this.searchDoc(passport : Document_PassportRF) =
+        Array.exists(fun x -> x.Equals passport) this.ArrayPass
+
+type ListPassports(listPass : Document_PassportRF list) =
+    inherit CollectionDocument()
+
+    member this.ListPass = listPass
+
+    override this.searchDoc(passport : Document_PassportRF) =
+        List.exists(fun x -> x.Equals passport) this.ListPass
+
+type SetPassports(listPass : Document_PassportRF list) =
+    inherit CollectionDocument()
+
+    member this.ListPass = Set.ofList listPass
+
+    override this.searchDoc( passport : Document_PassportRF)=
+        Set.contains passport this.ListPass
+
+type BinPassport( listPass : Document_PassportRF list) =
+    inherit CollectionDocument()
+
+    let rec TreeSearch (listPass : Document_PassportRF list) (pass : Document_PassportRF) =
+        match (List.length(listPass)) with
+        |0 -> false
+        |length -> 
+            let S = length/2
+            match compare pass listPass.[S] |> sign with
+            |0->true
+            |1-> TreeSearch listPass.[..S-1] pass
+            |_->TreeSearch listPass.[S+1..] pass
+
+    override this.searchDoc(passport) = 
+        TreeSearch (List.sortBy(fun (x:Document_PassportRF) -> (x.getSerial, x.getNumber)) listPass) passport
+
+let rec createPassport n =
+    if n=0 then []
+        else
+            let Head = Document_PassportRF()
+            Head.inputData
+            let Tail = createPassport(n-1)
+            Head::Tail
+    
 
 [<EntryPoint>]
 let main argv =
     let passport = Document_PassportRF()
     passport.inputData
-    passport.printDocument
+    (*passport.printDocument
     let passport2 = Document_PassportRF()
     passport2.inputData
-    passport2.printDocument
-    printfn "%b" (passport = passport2)
-    
+    passport2.printDocument*)
+    let listPass = createPassport 2 @ [passport] @ createPassport 1
+    let passArray = ArrayPassports(listPass)
+    let passList = ListPassports(listPass)
+    let passSet = SetPassports(listPass)
+    let passTree = BinPassport(listPass)
+
+
+   // printfn "%b" (passport = passport2) 
+
     0 
 (*Task 5 1 April 17 00
   Task 6 2 April 9 43
