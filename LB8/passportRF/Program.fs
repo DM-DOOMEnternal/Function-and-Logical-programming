@@ -4,6 +4,7 @@ open System
 open System.Text.RegularExpressions
 open System.Text
 open System.Collections.Generic
+open System.Diagnostics
 
 (*5 Создать класс, содержащий информацию о документе.*)
 
@@ -168,9 +169,25 @@ let main argv =
     let passSet = SetPassports(listPass)
     let passTree = BinPassport(listPass)
 
+   
+    let time = System.Diagnostics.Stopwatch.StartNew()
+    
     printfn "Result searchDoc Tree: %b" (passTree.searchDoc passport)
+    time.Stop()
+    printfn "Work class BinarySearch %f" (time.Elapsed.TotalMilliseconds)
+    time.Reset()
+
+    time.Start()
     printfn "Result searchDOc Array: %b" (passArray.searchDoc passport)
-    printfn "Result searchDoc Tree: %b" (passArray.searchDoc passport2)
+    time.Stop()
+    printfn "Work class Array %f" (time.Elapsed.TotalMilliseconds)
+    time.Reset()
+
+    time.Start()
+    printfn "Result searchDoc array(false): %b" (passArray.searchDoc passport2)
+    time.Stop()
+    printfn "Work class Array (false) %f" (time.Elapsed.TotalMilliseconds)
+
     0 
 (*Task 5 1 April 17 00
   Task 6 2 April 9 43
