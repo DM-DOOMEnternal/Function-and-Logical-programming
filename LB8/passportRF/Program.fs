@@ -151,7 +151,14 @@ let rec outPutList (list : Document_PassportRF list) =
     match list with
     |[] -> printfn ""
     |h::t -> h.printDocument; outPutList t
-    
+ 
+ 
+let timeComputing (time : Stopwatch) currentClass currDocument =
+    time.Reset()
+    time.Start()
+    let search = currentClass currDocument
+    time.Stop()
+    time.ElapsedMilliseconds
 
 [<EntryPoint>]
 let main argv =
@@ -169,10 +176,11 @@ let main argv =
     let passSet = SetPassports(listPass)
     let passTree = BinPassport(listPass)
 
-   
+    //let time = new Stopwatch()
     let time = System.Diagnostics.Stopwatch.StartNew()
     
     printfn "Result searchDoc Tree: %b" (passTree.searchDoc passport)
+    //printfn "Result searchDoc Tree: %d" (timeComputing time passTree.searchDoc passport)
     time.Stop()
     printfn "Work class BinarySearch %f" (time.Elapsed.TotalMilliseconds)
     time.Reset()
@@ -188,6 +196,7 @@ let main argv =
     time.Stop()
     printfn "Work class Array (false) %f" (time.Elapsed.TotalMilliseconds)
 
+    // time.Reset()
     0 
 (*Task 5 1 April 17 00
   Task 6 2 April 9 43
