@@ -1,0 +1,7 @@
+man(petr).
+man(alex).
+man(chester).
+father(petr).
+father(alex).
+parent(petr,alex).
+parent(alex,chester).
