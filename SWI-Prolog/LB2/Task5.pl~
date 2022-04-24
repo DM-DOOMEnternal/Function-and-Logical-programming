@@ -1,0 +1,13 @@
+%Дан целочисленный массив. Необходимо найти количество элемен-
+%тов, расположенных после последнего максимального
+%
+maxList([Max],Max):-!.
+maxList([Head|Tail],Max):-
+    maxList(Tail,Max1),
+    Max1 > Head,!, Max = Max1;
+    Max = Head.
+reverseList(List,NewList):- rev(List,[],NewList).
+rev([],Copy,Copy):- !.
+rev([Head|Tail],Copy,NewList):-
+    rev(Tail,[Head|Copy],NewList).
+
