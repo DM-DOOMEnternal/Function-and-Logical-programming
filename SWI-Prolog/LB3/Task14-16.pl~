@@ -1,0 +1,87 @@
+in_list([El|_],El).
+in_list([_|T],El):-in_list(T,El).
+
+sprava_next(A,B,[C]):-fail.
+sprava_next(A,B,[A|[B|Tail]]).
+sprava_next(A,B,[_|List]):-sprava_next(A,B,List).
+
+sleva_next(A,B,[C]):-fail.
+sleva_next(A,B,[B|[A|Tail]]).
+sleva_next(A,B,[_|List]):-sleva_next(A,B,List).
+
+
+next_to(A,B,List):-sprava_next(A,B,List).
+next_to(A,B,List):-sleva_next(A,B,List).
+
+el_no(List,Num,El):-el_no(List,Num,1,El).
+el_no([H|_],Num,Num,H):-!.
+el_no([_|Tail],Num,Ind,El):-Ind1 is Ind+1,el_no(Tail,Num,Ind1,El).
+
+
+%Задание№14
+%Беседует трое друзей: Белокуров, Рыжов, Чернов.
+%Брюнет сказал Белокурову: “Любопытно, что один из нас блондин, другой брюнет,
+%третий - рыжий, но ни у кого цвет волос не соответствует фамилии”. Какой
+%цвет волос у каждого из друзей?
+
+pr_commun:- Friends=[_,_,_],
+
+el_no(Friends,1,[blond,_]),
+el_no(Friends,2,[brunt,_]),
+el_no(Friends,3,[orange,_]),
+
+in_list(Friends,[_,rishow]),
+in_list(Friends,[_,below]),
+in_list(Friends,[_,chernov]),
+    (in_list(Friends,[blond,rishow]);
+                in_list(Friends,[blond,chernov])),
+    (in_list(Friends,[brunt,rishow]);
+                in_list(Friends,[brunt,below])),
+    (in_list(Friends,[orange,below]);
+                in_list(Friends,[orange,chernov])),
+write(Friends).
+
+
+
+%Задание №15
+%Три подруги вышли в белом, зеленом и синем платьях и
+%туфлях. Известно, что только у Ани цвета платья и туфлей совпадали. Ни
+%туфли,ни платье Вали не были белыми. Наташа была в зеленых туфлях. Определить
+%цвета платья и туфель на каждой из подруг.
+
+
+пр_подр:- Подруги =[_,_,_],
+           in_list(Подруги,[наташа,_,зелТ]),
+            in_list(Подруги,[_,белП,_]),
+             in_list(Подруги,[_,зелП,_]),
+              in_list(Подруги,[_,синП,_]),
+               in_list(Подруги,[_,_,зелТ]),
+                in_list(Подруги,[_,_,белТ]),
+                 in_list(Подруги,[_,_,синТ]),
+            (   in_list(Подруги,[аня,синП,синТ]);
+                in_list(Подруги,[аня,белП,белТ])),
+            (   in_list(Подруги,[валька,зелП,_]);
+                in_list(Подруги,[валька,синП,_])),
+            (   in_list(Подруги,[валька,_,синТ]);
+                in_list(Подруги,[валька,_,зелТ])),
+            write(Подруги).
+
+%Misiion 16
+% На заводе работали три друга: слесарь, токарь и сварщик. Их
+% фамилии Борисов, Иванов и Семенов. У слесаря нет ни братьев, ни сестер.
+% Он самый младший из друзей. Семенов, женатый на сестре Борисова,
+% старше токаря. Назвать фамилии слесаря, токаря и сварщика.
+%
+пр_друид:- Друиды =[_,_,_],
+           in_list(Друиды,[токарь,_,_,_]),
+            in_list(Друиды,[слесарь,_,_,_]),
+             in_list(Друиды,[сварщик,_,_,_]),
+              in_list(Друиды,[_,боря,_,1]),
+               in_list(Друиды,[_,ваня,_,_]),
+                in_list(Друиды,[_,сева,_,_]),
+                in_list(Друиды,[токарь,WHO1,2,1]),
+in_list(Друиды,[слесарь,WHO2,3,0]),
+                in_list(Друиды,[сварщик,WHO3,1,_]),
+write(Друиды),nl,
+
+write(WHO1),nl,write(WHO2),nl,write(WHO3).
