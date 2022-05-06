@@ -270,3 +270,21 @@ indexElmLessLefth([H|T],Ind,C,Count,Lg):-
                         indexElmLessLefth(T,Ind1,C1,Count,Lg);
                         Ind1 is Ind + 1,
                         indexElmLessLefth(T,Ind1,C,Count,Lg).
+
+%1.43 Дан целочисленный массив. Необходимо найти количество мини-
+%мальных элементов.
+minList([H],H):-!.
+minList([Head|Tail],Min):-
+    minList(Tail,MinElm),
+    MinElm < Head,!, Min=MinElm;
+    Min = Head.
+
+countMin(S,Count):-
+    minList(S,Min),
+    countMin(S,Min,0,Count).
+
+countMin([],_,C,C):-!.
+countMin([Min|T],Min,C,Count):- C1 is C + 1,countMin(T,Min,C1,Count).
+countMin([_|T],Min,C,Count):-countMin(T,Min,C,Count).
+
+%
