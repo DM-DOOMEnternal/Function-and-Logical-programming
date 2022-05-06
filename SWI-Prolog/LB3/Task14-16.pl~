@@ -204,7 +204,7 @@ in_listO([El1|T],El,El1,L2,K):-
     replace(алексеев,борисов,El1,[],L),
     reverseList(L,NL),
     in_listO(T,El,El1,[NL|L2],K).
-in_listO([A|T],El,El1,L2):- in_listO(T,El,El1,[A|L2],K).
+in_listO([A|T],El,El1,L2,K):- in_listO(T,El,El1,[A|L2],K).
 
 replace(_, _, [], L2,L2).
 replace(O, R, [H|T], L2,L3) :- H = O -> replace(O, R, T, [R|L2],L3);
@@ -247,3 +247,26 @@ replace(O, R, [H|T], L2,L3) :- H = O -> replace(O, R, T, [R|L2],L3);
 
     write(Купе).
 
+
+%Дан целочисленный массив. Вывести индексы элементов, которые
+%меньше своего левого соседа, и количество таких чисел.
+%
+%
+lengthList(List,L):- lengthList(List,0,L).
+lengthList([],C,L):- L is C,!.
+lengthList([_Head|Tail],Count,L):-
+    Count1 is Count +1,
+    lengthList(Tail,Count1,L).
+
+ielm(H,[S|_T]):-H<S.
+
+indElmLL(S,Count):-
+    reverseList(S,L),
+    lengthList(L,Lg),
+    indexElmLessLefth(L,0,0,Count,Lg).
+indexElmLessLefth([],_,Count,Count):-!.
+indexElmLessLefth([H|T],Ind,C,Count,Lg):-
+    ielm(H,T) -> C1 is C + 1,Lg1 is Lg - 1 - Ind,write(Lg1),Ind1 is Ind+1,
+                        indexElmLessLefth(T,Ind1,C1,Count,Lg);
+                        Ind1 is Ind + 1,
+                        indexElmLessLefth(T,Ind1,C,Count,Lg).
