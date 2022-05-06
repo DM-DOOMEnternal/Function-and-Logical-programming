@@ -288,27 +288,3 @@ countMin([Min|T],Min,C,Count):- C1 is C + 1,countMin(T,Min,C1,Count).
 countMin([_|T],Min,C,Count):-countMin(T,Min,C,Count).
 
 %
-%ƒан список. ѕостроить новый список из квадратов неотрицательных
-%чисел, меньших 100 и встречающихс€ в массиве больше 2 раз.
-isElmLessH(Elm):- Elm<100.
-isElmPoss(Elm):- Elm>0.
-
-member1(H,[H|_]).
-member1(H,[_|T]):-member1(H,T).
-no_duble([H|T],T1):-member1(H,T),no_duble(T,T1).
-no_duble([H|T],[H|T1]):-not(member1(H,T)),no_duble(T,T1).
-no_duble([],[]):-!.
-
-
-newListSq(S,NL):-
-    nLS(S,S,[],NL2),
-    no_duble(NL2,NL),!.
-nLS([],_,L,L).
-nLS([H|T],S,L,NL):-
-    (isElmPoss(H),isElmLessH(H),countElm(H,S,0)),!,H1 is H*H, nLS(T,S,[H1|L],NL);
-    nLS(T,S,L,NL).
-
-countElm(_,[],C):-C>2.
-countElm(H,[H|T],C):-
-    C1 is C + 1,countElm(H,T,C1).
-countElm(H,[_|T],C):-countElm(H,T,C).
