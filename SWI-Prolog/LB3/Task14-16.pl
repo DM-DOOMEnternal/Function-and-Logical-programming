@@ -301,9 +301,9 @@ no_duble([],[]):-!.
 
 
 newListSq(S,NL):-
-    nLS(S,S,[],NL).
-   % nLS(S,S,[],NL2),    %≈сли в задании не должно быть повторов
-    %no_duble(NL2,NL),!.
+    %nLS(S,S,[],NL).
+    nLS(S,S,[],NL2),    %≈сли в задании не должно быть повторов
+    no_duble(NL2,NL),!.
 nLS([],_,L,L).
 nLS([H|T],S,L,NL):-
     (isElmPoss(H),isElmLessH(H),countElm(H,S,0)),!,H1 is H*H, nLS(T,S,[H1|L],NL);
