@@ -8,4 +8,34 @@ showStrThree(S,Count):-
     write(S),
     write(','),
     write(S),nl,
-    write('count:',Count).
+    write('count:'),write(Count).
+%Дана строка. Найти количество слов.
+lengthL([],0).
+lengthL([_H|T],C):-
+    lengthL(T,C1),
+    C is C1 +1.
+
+%countWord(S,Count):- split_string(S," ","",L), lengthL(L,Count).
+
+
+%Вручную вытащить слова
+inStr("",_,_,0).
+inStr(S,C,N,N1) :- frontchar(S,C,_), N1=N+1, !.
+inStr(S,C,N,K)  :- frontchar(S,_,RS), N1=N+1, instr(RS,C,N1,K).
+
+headStr(_,0,"").
+headStr(S,L,R) :- frontchar(S,B,RS), L1=L-1, headStr(RS,L1,RR), frontchar(R,B,RR).
+
+tailStr(S,0,S).
+tailStr(S,N,Q) :- frontchar(S,_,RS), N1=N-1, tailStr(RS,N1,Q).
+
+splitStr("",[]).
+splitStr(S,[S])   :- inStr(S,' ',0,K), K=0,!.
+splitStr(S,[H|T]) :- inStr(S,' ',0,K), K>1, K1=K-1,
+    headStr(S,K1,H), tailStr(S,K,RS), splitStr(RS,T).
+splitStr(S,Q)     :- frontchar(S,' ',RS), splitStr(RS,Q).
+
+lensStr([],0).
+lensStr([_|T],N) :- lensStr(T,N1), N=N1+1.
+
+countWord(S,Count):- splitStr(S,ListWord), lensStr(ListWord,Count).
