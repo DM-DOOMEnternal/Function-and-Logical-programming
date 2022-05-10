@@ -18,9 +18,6 @@ lengthL([_H|T],C):-
 countWord(S,Count):- split_string(S," ","",L), lengthL(L,Count).
 
 %Дана строка, определить самое частое слово
-in_list([El|_],El).
-in_list([_|T],El):-in_list(T,El).
-
 cmw(_H,[],C,C):-!.
 cmw(H,[H|T],C,C2):-C1 is C+1,cmw(H,T,C1,C2).
 cmw(H,[_|T],C,C2):-cmw(H,T,C,C2).
@@ -83,4 +80,19 @@ outFLThreeSymbStr(S):-
     string_chars(S,L3),
     string_length(S,P),
     P>5,!,lengthList(L3,C),C1 is C - 3, outFLT(L3,0,C1);
-    firstElm(L3,H),outFL(H,P).
+    string_chars(S,L3), string_length(S,P),firstElm(L3,H),outFL(H,P).
+
+%Дана строка. Показать номера символов, совпадающих с последним
+%символом строки.
+numS([],_,_):-!.
+numS([Elm|T],Elm,C):-
+    write('#Sym = '),write(','),write(C),
+    C1 is C + 1,
+    numS(T,Elm,C1).
+numS([_|T],Elm,C):- C1 is C + 1, numS(T,Elm,C1).
+
+numSEqualLS(S):-
+    string_chars(S,L),
+    reverseList(L,RL),
+    firstElm(RL,LRL),
+    numS(L,LRL,0).
