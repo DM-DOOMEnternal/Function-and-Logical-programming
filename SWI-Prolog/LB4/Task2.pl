@@ -90,7 +90,51 @@ readFile_AMoreMiddleArifStr:-
 
 %4 Дан файл, вывести самое частое слово.
 
+cmw(_H,[],C,C):-!.
+cmw(H,[H|T],C,C2):-C1 is C+1,cmw(H,T,C1,C2).
+cmw(H,[_|T],C,C2):-cmw(H,T,C,C2).
 
+member1([H,_],[[H,_]|_]).
+member1([H,_],[[_,_]|T]):-member1([H,_],T).
+
+no_duble([H|T],T1):-member1(H,T),no_duble(T,T1).
+no_duble([H|T],[H|T1]):-not(member1(H,T)),no_duble(T,T1).
+no_duble([],[]):-!.
+
+
+countMeetW([],L1,L1).
+countMeetW([H|T],L1,L):- cmw(H,T,1,Count),
+    countMeetW(T,[[H,Count]|L1],L).
+
+reverseList(List,NewList):- rev(List,[],NewList).
+rev([],Copy,Copy):- !.
+rev([Head|Tail],Copy,NewList):-
+    rev(Tail,[Head|Copy],NewList).
+
+maxList([[H,C]],C,H):-!.
+maxList([[H,C]|Tail],Max,W):-
+    maxList(Tail,MaxElm,Y),
+    MaxElm > C,!, Max=MaxElm,W = Y;
+    Max = C, W = H.
+
+
+listToString([],L2,L2).
+listToString([H|T],L2,St):-
+    text_to_string(H,Y),
+    atomic_concat(Y," ",X),
+    string_concat(L2,X,F),
+    listToString(T,F,St).
+
+readFile_MostOftenW:-
+    see('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/File.txt'),!,
+    readStringToList(List),
+    seen, % закрывает для чтения
+    listToString(List,"",S),
+    split_string(S," ","",L),
+    countMeetW(L,[],L2),
+    no_duble(L2,L1),
+    maxList(L1,Max,W),
+    write(Max),nl,write(W),!.
 
 
 %5 Дан файл, вывести в отдельный файл строки, состоящие из слов, не

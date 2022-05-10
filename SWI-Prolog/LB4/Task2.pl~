@@ -69,14 +69,18 @@ readFileStrNotSpace(X):-
 countA([],C,C).
 countA([H|T],C,C1):- char_code(H,X),X = 65,!, S is C+1,countA(T,S,C1);countA(T,C,C1).
 
+outString([]).
+outString([H|T]):-write(H),outString(T).
+
 searchString([]).
 searchString([H|T]):-
     string_chars(H,X),
     length(X,Len),
     countA(X,0,CA),
     Mid is Len/CA,
-    CA > Mid,!,write(H),nl, searchString(T);
+    CA > Mid,!,outString(X),nl, searchString(T);
     searchString(T).
+
 
 readFile_AMoreMiddleArifStr:-
     see('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/File.txt'),!,
@@ -86,7 +90,29 @@ readFile_AMoreMiddleArifStr:-
 
 %4 Дан файл, вывести самое частое слово.
 
+wordToL([],L2,L2).
+wordToL([H|T],[H|L2],L):-wordToL(T,L2,L).
 
+concatAtom([],S,S).
+concatAtom([H|T],S,S1):- atomic_concat(H,S,X),concatAtom(T,X,S1).
+
+stringTolistWord([],L2,L2).
+stringTolistWord([H|T],L2,St):-
+    %string_chars(H,V),
+    text_to_string(H,Y),
+    atomic_concat(Y," ",X),
+    string_concat(X,L2,F),
+    %reverse(V,RV),
+    %concatAtom(RV,"",L2),
+    %atomic_concat(L2," ",X),
+    stringTolistWord(T,F,St).
+
+readFile_MostOftenW:-
+    see('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/File.txt'),!,
+    readStringToList(List),
+    seen, % закрывает для чтения
+    stringTolistWord(List,"",S),
+    write(S).
 
 
 %5 Дан файл, вывести в отдельный файл строки, состоящие из слов, не
