@@ -1,0 +1,50 @@
+%Задание 2 Решить 5 задач.
+%1 Дан файл. Прочитать из файла строки и вывести длину наибольшей
+%строки.
+%
+
+readFileLStr(X) :-
+    open('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/File.txt', read, Str),
+    read_file(Str,[],L),
+    close(Str),
+    maxList(L,X).
+
+%read_file(Stream,[],L) :- at_end_of_stream(Stream).
+read_file(Stream,L,L2) :-
+    \+ at_end_of_stream(Stream),
+    read_line_to_string(Stream,X),
+    %read_line(Stream,X),reverse(Xs, X),
+    %string_to_list(S, Xs),
+    %write(S),nl,
+    read_file(Stream,[X|L],L2).
+read_file(_,L,L).
+
+maxList([H],S):- string_length(H,C), S is C.
+maxList([H|Tail],Max):-
+    maxList(Tail,MaxElm),
+    string_length(H,P),
+    MaxElm > P,!, Max=MaxElm;
+    string_length(H,P),Max = P.
+
+%2 Дан файл. Определить, сколько в файле строк, не содержащих
+%пробелы.
+
+
+
+
+
+
+
+%3 Дан файл, найти и вывести на экран только те строки, в которых букв
+%А больше, чем в среднем на строку.
+
+
+
+
+%4 Дан файл, вывести самое частое слово.
+
+
+
+
+%5 Дан файл, вывести в отдельный файл строки, состоящие из слов, не
+%повторяющихся в исходном файле.
