@@ -139,3 +139,32 @@ readFile_MostOftenW:-
 
 %5 Дан файл, вывести в отдельный файл строки, состоящие из слов, не
 %повторяющихся в исходном файле.
+
+
+countMeetWStr([]).
+countMeetWStr([H|T]):- cmw(H,T,1,Count),Count>1,!,fail;
+    countMeetWStr(T).
+
+listToNoDubL([],L,L).
+listToNoDubL([H|T],L,L2):-
+    text_to_string(H,S),
+    split_string(S," ","",X),
+    countMeetWStr(X),!,listToNoDubL(T,[H|L],L2); listToNoDubL(T,L,L2).
+
+writeStr_symbol([]):-!.
+writeStr_symbol([H|Tail]):-put(H),writeStr_symbol(Tail).
+
+writeListStrToFile([]):-!.
+writeListStrToFile([H|T]):-writeStr_symbol(H),nl,writeListStrToFile(T).
+
+readFile_writeFileNorepeat:-
+    see('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/File.txt'),!,
+    readStringToList(List),
+    seen, % закрывает для чтения
+    %listToString(List,"",S),
+    %split_string(S," ","",L),
+    listToNoDubL(List,[],LnoDubStr),
+    reverse(LnoDubStr,RLnDS),
+    tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/File3.txt'),
+    writeListStrToFile(RLnDS),
+    told,!.
