@@ -53,4 +53,34 @@ mostOftenWord(S,W):- split_string(S," ","",L),
    % reverse(L2,K),
     no_duble(L2,L1),
     maxList(L1,Max,W),
-    write(Max),nl,write(W).
+    write(Max),nl,write(W),!.
+
+%Дана строка. Вывести первые три символа и последний три символа,
+%если длина строки больше 5 Иначе вывести первый символ столько
+%раз, какова длина строки.
+%
+%
+lengthList(List,L):- lengthList(List,0,L).
+lengthList([],C,L):- L is C,!.
+lengthList([_Head|Tail],Count,L):-
+    Count1 is Count +1,
+    lengthList(Tail,Count1,L).
+
+outFLT([],_,_):-!.
+outFLT([H|T],C,Length):-
+    C<3,!,write(H),write(','),C1 is C + 1, outFLT(T,C1,Length);
+    C>Length-1,!,write(H),write(','),C1 is C + 1, outFLT(T,C1,Length);
+    C1 is C+1,outFLT(T,C1,Length).
+
+outFL(_,0):-!.
+outFL(H,C):-
+    write(H),write(','),
+    L1 is C -1,
+    outFL(H,L1).
+firstElm([H|_],H).
+
+outFLThreeSymbStr(S):-
+    string_chars(S,L3),
+    string_length(S,P),
+    P>5,!,lengthList(L3,C),C1 is C - 3, outFLT(L3,0,C1);
+    firstElm(L3,H),outFL(H,P).
