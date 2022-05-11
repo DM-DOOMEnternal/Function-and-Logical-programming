@@ -77,4 +77,15 @@ aP(_P,0,P1):-reverse(P1,L1),outFile(L1),!,fail.
 aP(A,N,P):-in_list_exlude(A,El,A1),N1 is N - 1,aP(A1,N1,[El|P]).
 
 
+allCombination(List,K):-
+     tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
+     told,
+     translateNumToCode(List,[],NL),
+     reverse(NL,RNL),
+     write(RNL),
+     aC(RNL,K,B),
+     outFile(B),nl,fail.
 
+aC(_,0,[]):-!.
+aC([H|T],K,[H|L]):- K1 is K - 1,aC(T,K1,L).
+aC([_|T],K,L):-aC(T,K,L).
