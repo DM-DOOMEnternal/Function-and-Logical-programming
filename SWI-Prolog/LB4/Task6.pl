@@ -65,16 +65,16 @@ in_list_exlude([H|T],El,[H|Tail]):-in_list_exlude(T,El,Tail).
 % in_list_exlude([El|T],El,T) где дополняется [H|Tail] Т и получ спис из
 % остав элемн
 
-allPlacement(List):-
+allPlacement(List,K):-
     tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
     told,
     translateNumToCode(List,[],NL),
     reverse(NL,RNL),
     write(RNL),
-    aP(RNL,[]).
+    aP(RNL,K,[]).
 
-aP([],Perm1):-reverse(Perm1,L1),outFile(L1),!,fail.
-aP(A,Perm):-in_list_exlude(A,El,A1),aP(A1,[El|Perm]).
+aP(_P,0,P1):-reverse(P1,L1),outFile(L1),!,fail.
+aP(A,N,P):-in_list_exlude(A,El,A1),N1 is N - 1,aP(A1,N1,[El|P]).
 
 
 
