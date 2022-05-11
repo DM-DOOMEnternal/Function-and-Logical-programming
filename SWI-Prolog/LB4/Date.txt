@@ -1,0 +1,8 @@
+This text! one string
+not «22.01.222»
+«015.01.2022»
+«22.99.2022» 
+«22.01.2022» is date
+and too date «22.01.2021»
+that all or no «2ç2.01.2021»
+and 5 "2" 4
