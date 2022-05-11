@@ -39,19 +39,39 @@ allPlacementRepeat(List,K):-
     aAPR(RNL,K,[]).
 
 allpermutat(List,K):-
-   % tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
-    open('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt',write,Out),
+    tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
+    told,
     translateNumToCode(List,[],NL),
     reverse(NL,RNL),
-    permutat(RNL,K,[],Out),
-    close(Out).
+    permutat(RNL,K,[]).
 
-writeFile([]):-!.
-writeFile([H|T]):-put(H),writeFile(T).
 
-permutat(_List, 0, Perm,Out):-outputStr_symb(Perm,Out),put(Out,10),fail.
-permutat(List, K, Permut,Out):-
+permutat(_List, 0, Perm):-
+    open('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt',append,Out),
+    outputStr_symb(Perm,Out)
+    ,put(Out,10)
+    ,close(Out)
+    ,fail.
+
+permutat(List, K, Permut):-
   member(H, List),
   delete(List, H, Tail),
   K1 is K - 1,
-  permutat(Tail, K1, [H|Permut],Out),close(Out).
+  permutat(Tail, K1, [H|Permut]).
+
+in_list_exlude([El|T],El,T).
+in_list_exlude([H|T],El,[H|Tail]):-in_list_exlude(T,El,Tail).
+%сначала вызов in_l_e(T,El,Tail), потом пихаем [H|Tail] затем вызов
+% in_list_exlude([El|T],El,T) где дополняется [H|Tail] Т и получ спис из
+% остав элемн
+
+build_all_perm(List):-
+    tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
+    told,
+    translateNumToCode(List,[],NL),
+    reverse(NL,RNL),
+    write(RNL),
+    b_a_p(RNL,[]).
+
+b_a_p([],Perm1):-reverse(Perm1,L1),outFile(L1),!,fail.
+b_a_p(A,Perm):-in_list_exlude(A,El,A1),b_a_p(A1,[El|Perm]).

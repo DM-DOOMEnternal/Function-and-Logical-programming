@@ -5,13 +5,13 @@ outputStr_symb([H|Tail],Out):- put(Out,H),outputStr_symb(Tail,Out).
 outFile(L):-
     open('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt',append,Out),
     outputStr_symb(L,Out),put(Out,10),close(Out).
+
 elmInlist([El|_],El).
 elmInlist([_|T],El):-elmInlist(T,El).
 
 inputStr(A,N):-get0(X),recordList(X,A,[],N,0).
 recordList(10,A,A,N,N):-!.
 recordList(Symb,A,B,N,K):-K1 is K+1,
-    %append(B,[Symb],B1),
     get0(NextSymb),
     recordList(NextSymb,A,[Symb|B],N,K1).
 
@@ -58,3 +58,23 @@ permutat(List, K, Permut):-
   delete(List, H, Tail),
   K1 is K - 1,
   permutat(Tail, K1, [H|Permut]).
+
+in_list_exlude([El|T],El,T).
+in_list_exlude([H|T],El,[H|Tail]):-in_list_exlude(T,El,Tail).
+%сначала вызов in_l_e(T,El,Tail), потом пихаем [H|Tail] затем вызов
+% in_list_exlude([El|T],El,T) где дополняется [H|Tail] Т и получ спис из
+% остав элемн
+
+allPlacement(List):-
+    tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
+    told,
+    translateNumToCode(List,[],NL),
+    reverse(NL,RNL),
+    write(RNL),
+    aP(RNL,[]).
+
+aP([],Perm1):-reverse(Perm1,L1),outFile(L1),!,fail.
+aP(A,Perm):-in_list_exlude(A,El,A1),aP(A1,[El|Perm]).
+
+
+
