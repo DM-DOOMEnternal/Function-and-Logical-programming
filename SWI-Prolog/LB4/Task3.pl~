@@ -4,7 +4,7 @@
 countSymb([],CurC,CurC).
 countSymb([H|T],CurC,C):-
     char_code(H,X),
-    X @>= 1040,X @=< 255,!,C1 is CurC+1,countSymb(T,C1,C);
+    X @>= 1040,X @=< 1103,!,C1 is CurC+1,countSymb(T,C1,C);
     countSymb(T,CurC,C).
 
 commonCountRus(S,X):-
@@ -13,5 +13,24 @@ commonCountRus(S,X):-
 
 %Дана строка. Необходимо проверить образуют ли строчные символы латиницы палиндром.
 %
-%
+
+isLowercaseStr([]).
+isLowercaseStr([H|T]):-
+    char_code(H,X),
+    ((X @>=1074,X @=<1103);(X @>=97, X @=<122)),!,isLowercaseStr(T);
+    fail.
+
+palind([],L,L).
+palind([H|T],L,L1):-palind(T,[H|L],L1).
+
+equalList([],[]).
+equalList([H|T],[E|R]):-
+    H=E,!,equalList(T,R);
+    fail.
+
+isPallindrom(S):-
+    string_chars(S,C),
+    isLowercaseStr(C),!,palind(C,[],NL),reverse(NL,RNL),equalList(C,RNL);
+    write('В строке есть другие символы(все дб строчные').
+
 %Найти в тексте даты формата «день.месяц.год».
