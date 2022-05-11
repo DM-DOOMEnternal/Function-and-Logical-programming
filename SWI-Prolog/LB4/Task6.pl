@@ -20,21 +20,41 @@ translateNumToCode([H|T],L,L2):-
     number_codes(H,Y),
     translateNumToCode(T,[Y|L],L2).
 
-bAPR(_A,0,ListPerm):-outFile(ListPerm),!,fail.
-bAPR(A,N,ListPerm):-elmInlist(A,El),N1 is N-1,bAPR(A,N1,[El|ListPerm]).
+aPR(_A,0,ListPerm):-outFile(ListPerm),!,fail.
+aPR(A,N,ListPerm):-elmInlist(A,El),N1 is N-1,aPR(A,N1,[El|ListPerm]).
 
-buildAllPlacementRepeat:-
+allPlacementRepeat:-
     tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
     told,
-    inputStr(A,N),
+    inputStr(A,_N),
     read(K),
-    bAPR(A,K,[]),!.
+    aAPR(A,K,[]),!.
 
 
-buildAllPlacementRepeat(List,K):-
+allPlacementRepeat(List,K):-
     tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
     told,
     translateNumToCode(List,[],NL),
     reverse(NL,RNL),
-    bAPR(RNL,K,[]).
+    aAPR(RNL,K,[]).
 
+allpermutat(List,K):-
+    tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
+    told,
+    translateNumToCode(List,[],NL),
+    reverse(NL,RNL),
+    permutat(RNL,K,[]).
+
+
+permutat(_List, 0, Perm):-
+    open('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt',append,Out),
+    outputStr_symb(Perm,Out)
+    ,put(Out,10)
+    ,close(Out)
+    ,fail.
+
+permutat(List, K, Permut):-
+  member(H, List),
+  delete(List, H, Tail),
+  K1 is K - 1,
+  permutat(Tail, K1, [H|Permut]).
