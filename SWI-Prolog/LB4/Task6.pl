@@ -89,3 +89,19 @@ allCombination(List,K):-
 aC(_,0,[]):-!.
 aC([H|T],K,[H|L]):- K1 is K - 1,aC(T,K1,L).
 aC([_|T],K,L):-aC(T,K,L).
+
+
+allCombinationRepeat(List,K):-
+    tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
+    told,
+    translateNumToCode(List,[],NL),
+    reverse(NL,RNL),
+    aCR(RNL,K,Comb),
+    outFile(Comb),fail.
+
+aCR(_,0,[]):-!.
+aCR([H|T],K,[H|L]):- K1 is K - 1,aCR([H|T],K1,L).
+aCR([_|T],K,L):-aCR(T,K,L).
+
+
+
