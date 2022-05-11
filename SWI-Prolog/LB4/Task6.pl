@@ -103,5 +103,16 @@ aCR(_,0,[]):-!.
 aCR([H|T],K,[H|L]):- K1 is K - 1,aCR([H|T],K1,L).
 aCR([_|T],K,L):-aCR(T,K,L).
 
+allsubSet(List):-
+    tell('C:/Users/Knight/Documents/F#/GitHub/LB6/LB6/SWI-Prolog/LB4/PlacRep.txt'),
+    told,
+    translateNumToCode(List,[],NL),
+    reverse(NL,RNL),
+    aS(RNL,Set),
+    outFile(Set),fail.
+
+aS([],[]).
+aS([H|T],[H|L]):-aS(T,L).
+aS([_H|T],L):-aS(T,L).
 
 
