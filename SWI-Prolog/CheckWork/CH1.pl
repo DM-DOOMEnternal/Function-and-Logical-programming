@@ -39,7 +39,8 @@ allCombinationR(List,K,L):-
      open('Ch.txt', read, Str),
      read_file(Str,[],L),
      close(Str),
-     write(L),!.
+     write(L),
+     !.
 
 read_file(Stream,L,L2) :-
     \+ at_end_of_stream(Stream),
@@ -73,3 +74,29 @@ outFile(L):-
     open('Ch.txt',append,Out),
     outputStr_symb(L,Out),put(Out,10),close(Out).
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+outListS(List):-
+    length(List,K),
+    allCombinationR(List,K,L2),
+    nl,
+    search(L2),!.
+
+search([]):-!.
+search([H|T]):-
+    string_chars(H,L),
+    length(L,C),
+    C>1,!,sss(L,L) -> write(H),write(---),search(T);
+    search(T);
+    write(H),write(---),search(T).
+
+sss(L,[_|T]):-
+    ss(L,T).
+
+ss(_,[]):-true.
+ss([H|T],[H2|T2]):-
+   % number_chars(H,C),
+    atom_number(H,N),
+    atom_number(H2,N2),
+    mutuallySimple(N,N2),!,ss(T,T2);
+    false.
+
