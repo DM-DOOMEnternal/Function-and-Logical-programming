@@ -6,10 +6,7 @@ gcd(X,Y,Z):- M is  X mod Y, gcd(Y,M,Z).
 mutuallySimple(X,Y):-
     gcd(X,Y,1),!, true;false.
 
-
-
 max_list(List):-indList(List,0,0,0,IndMax),write("Index"),write(IndMax).
-
 
 indList([],_,IndMax,_,CurInd):- CurInd is IndMax.
 indList([H|T],Ind,IndMax,Max,CurInd):-
@@ -100,3 +97,52 @@ ss([H|T],[H2|T2]):-
     mutuallySimple(N,N2),!,ss(T,T2);
     false.
 
+outFile(L,_TwiceA):-
+    checkThreeA(L,0),checkTwoB(L,0),checkFile(L)->
+    open('Ch.txt',append,Out),
+    outputStr_symb(L,Out),put(Out,10),close(Out),write(L),nl.
+
+aP1(_P,0,P1):-reverse(P1,L1),outFile(L1,1),!,fail.
+aP1(A,N,P):-in_list_exlude(A,El,A1),N1 is N - 1,aP1(A1,N1,[El|P]).
+
+allCombRepThreeATwoB(List,K,_ThreeA):-
+    tell('Ch.txt'),
+    told,
+    K=6 -> (
+    aCR(List,K,Comb),
+        checkThreeA(Comb,0),checkTwoB(Comb,0),
+              aP1(Comb,K,[]),fail).
+
+checkThreeA([],C):- C =:=3,!,true;false.
+checkThreeA([H|T],C):-
+    char_code(H,X),
+    X=97,!,C1 is C + 1,checkThreeA(T,C1);
+    checkThreeA(T,C).
+
+checkTwoB([],C):- C =:=2,!,true;false.
+checkTwoB([H|T],C):-
+     char_code(H,X),
+    X=98,!,C1 is C + 1,checkTwoB(T,C1);
+    checkTwoB(T,C).
+
+
+in_list_exlude([El|T],El,T).
+in_list_exlude([H|T],El,[H|Tail]):-in_list_exlude(T,El,Tail).
+
+checkFile(List):-
+     open('Ch.txt', read, Str),!,
+     read_file(Str,[],L),close(Str),!,
+     checkNoDubl(List,L)-> true;false.
+
+checkNoDubl(_,[]).
+checkNoDubl(L,[H|T]):-
+    text_to_string(H,S),string_chars(S,X),
+    noRepeatSymbol(L,X,0),!,fail;
+    checkNoDubl(L,T).
+
+noRepeatSymbol([],[_|_T],_):-true.
+noRepeatSymbol([],[],C):-C<6,!,fail;true.
+noRepeatSymbol([H|T],[H2|T2],C):- char_code(H,X),
+    char_code(H2,X2),X=X2,!,C1 is C + 1,
+               noRepeatSymbol(T,T2,C1);
+               noRepeatSymbol(T,T2,C).
