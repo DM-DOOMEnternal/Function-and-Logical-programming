@@ -1,0 +1,10 @@
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\bin\Debug\netcoreapp2.1\_5.deps.json
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\bin\Debug\netcoreapp2.1\_5.runtimeconfig.json
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\bin\Debug\netcoreapp2.1\_5.runtimeconfig.dev.json
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\bin\Debug\netcoreapp2.1\_5.dll
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\bin\Debug\netcoreapp2.1\_5.pdb
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\obj\Debug\netcoreapp2.1\_5.AssemblyInfoInputs.cache
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\obj\Debug\netcoreapp2.1\_5.AssemblyInfo.fs
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\obj\Debug\netcoreapp2.1\_5.dll
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\obj\Debug\netcoreapp2.1\_5.pdb
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\_5\obj\Debug\netcoreapp2.1\_5.fsprojAssemblyReference.cache
