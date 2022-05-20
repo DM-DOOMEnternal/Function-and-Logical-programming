@@ -1,0 +1,10 @@
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\bin\Debug\netcoreapp2.1\Task9.deps.json
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\bin\Debug\netcoreapp2.1\Task9.runtimeconfig.json
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\bin\Debug\netcoreapp2.1\Task9.runtimeconfig.dev.json
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\bin\Debug\netcoreapp2.1\Task9.dll
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\bin\Debug\netcoreapp2.1\Task9.pdb
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\obj\Debug\netcoreapp2.1\Task9.AssemblyInfoInputs.cache
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\obj\Debug\netcoreapp2.1\Task9.AssemblyInfo.fs
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\obj\Debug\netcoreapp2.1\Task9.dll
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\obj\Debug\netcoreapp2.1\Task9.pdb
+C:\Users\Knight\Documents\F#\GitHub\LB6\LB6\LB9\Task9\obj\Debug\netcoreapp2.1\Task9.fsprojAssemblyReference.cache
