@@ -10,7 +10,7 @@ Application.EnableVisualStyles()
 let main argv =
      let form = new Form(Width=302, Height=250,Text = "Списки.")
      let button1 = new Button(Left=21, Top=38, Text="Начальный список", Width=96,Height=46)
-     let button2 = new Button(Left=21, Top=90, Text="Поработать со списком", Width=96, Height=46)
+     let button2 = new Button(Left=21, Top=90, Text="DOIN LIST!", Width=96, Height=46)
      let textBox1 = new TextBox(Left=156, Top=38, Width=114, Height=20)
      let textBox2 = new TextBox(Left=156, Top=107, Width=114, Height=20)
      

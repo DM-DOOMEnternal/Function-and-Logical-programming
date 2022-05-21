@@ -56,7 +56,7 @@ xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
         <ColumnDefinition Width='156*' />
         <ColumnDefinition Width='163' />
     </Grid.ColumnDefinitions>
- <Button Content='СДАЕМ ЛАБЫ!' Height='75' HorizontalAlignment='Left' Margin='
+ <Button Content='ФИЛП или ФИЛИП' Height='75' HorizontalAlignment='Left' Margin='
 12,10,0,0' Name='button1' VerticalAlignment='Top' Width='286' 
 Grid.ColumnSpan='2' />
     <Button Content='Выход' Height='23' HorizontalAlignment='Left' Margin='

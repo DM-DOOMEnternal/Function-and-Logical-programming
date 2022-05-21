@@ -9,28 +9,28 @@ Application.EnableVisualStyles()
 let main argv =
     let form = new Form(Text="Работа с массивом.")
    
-    //Создание подписи для поля ввода 
+    // поля ввода 
     let label1 = new Label()
     label1.Location<-new Point(100,25)
     label1.Text<-"Исходный:"
     label1.Width<-60
     label1.Height<-12
 
-    //Создание подписи для поля вывода
+    // поля вывода
     let label2 = new Label()
     label2.Location<-new Point(100,70)
     label2.Text<-"Новый:"
     label2.Width<-60
     label2.Height<-12
 
-    //Создание текстового поля для ввода информации
+    // ввода информации
     let txtInputA = new TextBox()
     txtInputA.Location<-new Point(170,25)
     txtInputA.Width<-100
     txtInputA.Height<-25
     txtInputA.Text<-""
 
-    //Создание текстового поля для вывода информации
+    // вывода информации
     let txtOutputA = new TextBox()
     txtOutputA.Location<-new Point(170,70)
     txtOutputA.Width<-100
@@ -44,7 +44,7 @@ let main argv =
             [||]
         else
             let parts = str.Split(' ')
-            Array.map (fun str ->   Int32.Parse str) parts
+            Array.map (fun str ->   Int32.Parse str) parts // Парсим строку в 32битовое значение
     
     // 360 degree
     let button1 = new Button(Text="Вывод")
@@ -52,7 +52,7 @@ let main argv =
     button1.Click.AddHandler(fun _ _ ->
            let array1 = getArrayFromTextBox txtInputA
            let array2 = Array.rev array1
-           txtOutputA.Text <- (array2 |> sprintf "%A")
+           txtOutputA.Text <- (array2 |> sprintf "%A") // форматир данные в строку
            array2|> ignore)
 
    
